@@ -18,17 +18,22 @@ if token is None:
 with open('data.json') as f:
     responses = json.load(f)['responses']
 
+channel = None
 @client.event
 async def on_ready():
     print('Kunjappan is live')
+    global channel
+    channel = client.get_channel(618270738247581708)
 
 @client.event
 async def on_member_join(member):
     print(f'{member} jas joined the server')
+    await channel.send(f'welcome {member.name}. Please make yourselves home :)')
 
 @client.event
 async def on_member_remove(member):
     print(f'{member} has left the server')
+    await channel.send(f'Good bye {member.name}. Hope to see you soon :)')
 
 @client.command()
 async def ping(ctx):
@@ -41,7 +46,8 @@ ariyilla = ['athinulla answer njan pinne parayam.', 'ariyilla', 'marannupoyi',
 async def diag(ctx, *args):
     #await ctx.send(f'{random.choice(responses)}')
     #await ctx.send(f'athe, njan thanne kunjappan :p. Parayu. chodichthe: {ctx.message}')
-    print(ctx.message, dir(ctx.message))
+    
+    #print(ctx.message, dir(ctx.message))
     response = f'endha {ctx.message.author.name} ? para'
     if not args:
         await ctx.send(f"{response}")
