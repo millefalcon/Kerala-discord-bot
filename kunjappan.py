@@ -42,8 +42,8 @@ async def ping(ctx):
 ariyilla = ['athinulla answer njan pinne parayam.', 'ariyilla', 'marannupoyi',
            'manasilayilla']
 #@client.command(aliases=['para', 'vallom para', 'kunjappa'])
-@client.command(name='kunjappa')
-async def diag(ctx, *args):
+@client.command(name='kunja')
+async def respond(ctx, *args):
     #await ctx.send(f'{random.choice(responses)}')
     #await ctx.send(f'athe, njan thanne kunjappan :p. Parayu. chodichthe: {ctx.message}')
     
