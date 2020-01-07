@@ -15,7 +15,7 @@ token = os.getenv('DISCORD_TOKEN')
 if token is None:
     sys.exit("DISCORD_TOKEN is not found. Please set the the DISCORD_TOKEN in the environment")
 
-with open('data.json') as f:
+with open('data.json', encoding='utf-8') as f:
     responses = json.load(f)['responses']
 
 channel = None
@@ -39,8 +39,11 @@ async def on_member_remove(member):
 async def ping(ctx):
     await ctx.send(f'{round(client.latency *1000)} ms')
 
-ariyilla = ['athinulla answer njan pinne parayam.', 'ariyilla', 'marannupoyi',
-           'manasilayilla']
+ariyilla = [
+    'athinulla answer njan pinne parayam.', 'ariyilla', 'marannupoyi', 'manasilayilla']
+ques = [
+    'endha ?', 'endhado ?', 'parado', 'chumma vilichatha ?', 'endhina viliche ?'
+]
 #@client.command(aliases=['para', 'vallom para', 'kunjappa'])
 @client.command(name='kunja')
 async def respond(ctx, *args):
@@ -48,7 +51,7 @@ async def respond(ctx, *args):
     #await ctx.send(f'athe, njan thanne kunjappan :p. Parayu. chodichthe: {ctx.message}')
     
     #print(ctx.message, dir(ctx.message))
-    response = f'endha {ctx.message.author.name} ? para'
+    response = f'endha {ctx.message.author.name}, {random.choice(ques)}'
     if not args:
         await ctx.send(f"{response}")
         return None
