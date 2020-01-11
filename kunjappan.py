@@ -10,6 +10,27 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix = '.')
 
+# language bot
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
+chatbot = ChatBot('Ron Obvious')
+# Create a new trainer for the chatbot
+trainer = ChatterBotCorpusTrainer(chatbot)
+
+# Train based on the english corpus
+trainer.train("chatterbot.corpus.english")
+
+# Train based on english greetings corpus
+trainer.train("chatterbot.corpus.english.greetings")
+
+# Train based on the english conversations corpus
+trainer.train("chatterbot.corpus.english.conversations")
+
+
+# Get a response to an input statement
+#resp = chatbot.get_response("Hello, how are you today?")
+
 #client = discord.Client()
 token = os.getenv('DISCORD_TOKEN')
 if token is None:
@@ -45,12 +66,18 @@ ques = [
     'endha ?', 'endhado ?', 'parado', 'chumma vilichatha ?', 'endhina viliche ?'
 ]
 #@client.command(aliases=['para', 'vallom para', 'kunjappa'])
-@client.command(name='kunja')
+botname = 'kunja'
+@client.command(name=botname)
 async def respond(ctx, *args):
     #await ctx.send(f'{random.choice(responses)}')
     #await ctx.send(f'athe, njan thanne kunjappan :p. Parayu. chodichthe: {ctx.message}')
     
     #print(ctx.message, dir(ctx.message))
+    req_text = ' '.join(args).replace(f'.{botname}', '').replace('?', '')
+    print('request', req_text)
+    response = chatbot.get_response(req_text)
+    await ctx.send(str(response))
+    """
     response = f'endha {ctx.message.author.name}, {random.choice(ques)}'
     if not args:
         await ctx.send(f"{response}")
@@ -59,6 +86,7 @@ async def respond(ctx, *args):
         await ctx.send(f"{random.choice(ariyilla)}")
         return None
     await ctx.send(f'{random.choice(responses)}')
+    """
 
 """
 @client.event
